@@ -1,4 +1,4 @@
-package ru.mirea.p1_dog;
+package ru.mirea.praktika_1.p1_dog;
 
 import java.lang.*;
 
