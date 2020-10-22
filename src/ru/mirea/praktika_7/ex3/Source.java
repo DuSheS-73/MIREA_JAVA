@@ -1,44 +1,31 @@
-package ru.mirea.praktika_7.ex1;
+package ru.mirea.praktika_7.ex3;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 public class Source
 {
-    private static void reverse(Stack<Integer> stack)
+    private static void addToDeck(ArrayDeque<Integer> deck, int ownCard, int opponentCard)
     {
-        Stack<Integer> tempStack = new Stack<>();
-        while(stack.isEmpty() == false)
-            tempStack.push(stack.pop());
-
-        for(var i : tempStack)
-            stack.push(i);
+        deck.offerLast(ownCard);
+        deck.offerLast(opponentCard);
     }
-
-    private static void addToDeck(Stack<Integer> deck, int ownCard, int opponentCard)
-    {
-        reverse(deck);
-        deck.push(ownCard);
-        deck.push(opponentCard);
-        reverse(deck);
-    }
-
 
     private static String gameExec(int[] firstPlayerCards, int[] secondPlayerCards)
     {
         int moves = 0;
 
-        Stack<Integer> fCards = new Stack<>();
-        Stack<Integer> sCards = new Stack<>();
+        ArrayDeque<Integer> fCards = new ArrayDeque<>();
+        ArrayDeque<Integer> sCards = new ArrayDeque<>();
 
-        for (int i = firstPlayerCards.length - 1; i >= 0 ; i--) {
-            fCards.push(firstPlayerCards[i]);
-            sCards.push(secondPlayerCards[i]);
+        for (int i = 0; i < firstPlayerCards.length ; i++) {
+            fCards.offerLast(firstPlayerCards[i]);
+            sCards.offerLast(secondPlayerCards[i]);
         }
 
         while(fCards.isEmpty() == false && sCards.isEmpty() == false)
         {
-            int fCard = fCards.pop();
-            int sCard = sCards.pop();
+            int fCard = fCards.pollFirst();
+            int sCard = sCards.pollFirst();
 
             System.out.println(fCard + " " + sCard);
 
@@ -70,7 +57,6 @@ public class Source
         else
             return "first " + moves;
     }
-
     public static void main(String[] args)
     {
         System.out.println(gameExec(new int[]{1, 3, 5, 7, 9}, new int[]{2, 4, 6, 8, 0}));
